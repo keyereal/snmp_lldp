@@ -5,3 +5,21 @@
 [2018-09-21] Changes for 1.0
   - initial version.
 
+[2018-11-26] Changes for 1.1
+  - Add module for Zabbix 4.0
+  - Updated installation document.
+
+[2019-05-28] Changes for 1.2
+  - Add module for Zabbix 4.2
+  - Change of specification of monitoring template (disable trigger)
+  - Updated installation document.
+
+[2019-07-08] Changes for 1.3
+  - Source code modification to support Zabbix 4.0.7
+  - Separate modules by Zabbix 4.0.0 to 4.0.6 and 4.0.7 or later.
+
+[2019-11-14] Changes for 1.4
+  - Add module for Zabbix 4.4
+
+[2020-06-05] Changes for 1.5
+  - Add module for Zabbix 5.0

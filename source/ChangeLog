@@ -1,0 +1,10 @@
+                Layer 2 Discovery Module for LLDP
+                              Changes
+
+[2018-09-21] Changes for 1.0
+  - initial version.
+
+[2018-09-21] Changes for 1.1
+  - Modified version for specification changes of Zabbix 4.2 and 4.0.7 or later.
+
+

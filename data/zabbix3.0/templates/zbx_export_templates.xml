@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.0</version>
-    <date>2018-09-27T16:05:03Z</date>
+    <date>2019-05-27T22:36:45Z</date>
     <groups>
         <group>
             <name>Templates/L2DM/LLDP</name>
@@ -11,7 +11,7 @@
         <template>
             <template>Template_LLDP_General_freeversion_1.0</template>
             <name>Template LLDP - General</name>
-            <description>LLDP Module Temaplate type1-1&#13;
+            <description>LLDP Module Temaplate type1-1 version 1.1 (20190516)&#13;
 &#13;
 Conditions&#13;
  - Use with LLDP module installed&#13;
@@ -478,7 +478,7 @@ Specification:&#13;
                             <expression>{Template_LLDP_General_freeversion_1.0:lldp.loc.if.opstatus[{#PORT_NUM}].last()}=2</expression>
                             <name>[Port - {#PORT_NAME}] - Link Down</name>
                             <url/>
-                            <status>0</status>
+                            <status>1</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>
@@ -762,7 +762,7 @@ Specification:&#13;
         <template>
             <template>Template_LLDP_IndexNum_freeversion_1.0</template>
             <name>Template LLDP - IndexNum</name>
-            <description>LLDP Module Temaplate type1-2&#13;
+            <description>LLDP Module Temaplate type1-2 version 1.1 (20190516)&#13;
 &#13;
 Conditions&#13;
  - Use with LLDP module installed&#13;
@@ -1229,7 +1229,7 @@ Specification:&#13;
                             <expression>{Template_LLDP_IndexNum_freeversion_1.0:lldp.loc.if.opstatus[{#PORT_NUM}].last()}=2</expression>
                             <name>[Port - {#PORT_NUM}] - Link Down</name>
                             <url/>
-                            <status>0</status>
+                            <status>1</status>
                             <priority>1</priority>
                             <description/>
                             <type>0</type>

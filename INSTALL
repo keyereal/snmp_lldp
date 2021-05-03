@@ -1,7 +1,7 @@
 
                 Layer 2 Discovery Module for LLDP
                       Installation document
-                      (Version 1, Sep 2018)
+                      (Version 1.5, June 2020)
 
  ------------------
   Tree Layout
@@ -25,7 +25,12 @@ modules/ .............. Zabbix loadable modules
   zabbix3.0/ .......... loadable module file for Zabbix 3.0
   zabbix3.2/ .......... loadable module file for Zabbix 3.2
   zabbix3.4/ .......... loadable module file for Zabbix 3.4
-
+  zabbix4.0.0-6/ ...... loadable module file for Zabbix 4.0.0 - 4.0.6
+  zabbix4.0.7-/ ....... loadable module file for Zabbix 4.0.7 or later
+  zabbix4.2/ .......... loadable module file for Zabbix 4.2
+  zabbix4.4/ .......... loadable module file for Zabbix 4.4
+  zabbix5.0.el7/ ...... loadable module file for Zabbix 5.0 (RHEL7/CentOS7)
+  zabbix5.0.el8/ ...... loadable module file for Zabbix 5.0 (RHEL8/CentOS8)
 
  ------------------
 　Install
@@ -42,27 +47,38 @@ modules/ .............. Zabbix loadable modules
 
     ex) /usr/lib/zabbix/modules/
 
-  3. Write a loadable module to the Zabbix configuration file.
+  3. Make settings to load loadable modules into Zabbix Server / Proxy configuration file.
 
     ex) LoadModulePath=/usr/lib/zabbix/modules
         LoadModule=lldp_get.so
 
-  4. Restart the Zabbix process.
-     Check the log and confirm that the following wording is recorded.
-     Depending on the version of Zabbix and log debug level, the display may differ.
-     (Sample is Zabbix 3.0, with debug log level 3)
+  4. Restart the Zabbix Server / Proxy process.
+     Check the Zabbix Server / Proxy log file and confirm that the following wording 
+     indicating that the loadable module has been loaded is output.
 
     ex) lldp_get module: loaded by server process. [1]
         loaded modules: lldp_get.so
 
-  5. In the zabbix web interface, import the template and value mapping XML file.
+     The display may vary depending on the version of Zabbix and the log debug level.
+     (The example shows the case when Zabbix 3.0 is set to log level 3)
+
+
+   How to setting templates
+  -----------------------------------
+
+  1. Login to the Zabbix Web interface with an account with super administrator privileges.
+
+  2. [Administration] -> [General settings] -> [Value mapping], value mapping 
+     Import the file for setting.
+
+  3. [Settings] -> [Template], import the LLDP monitoring template.
 
 
    How to setting the host
   -----------------------------------
 
   1. "Create Host" is done from setting screen.
-     Set the IP address in "Agent interfaces" and "SNMP interfaces".
+     Set the IP address in "SNMP interfaces".
 
   2. Set "Template LLDP - General" or "Template LLDP - IndexNum" to the created host. (Select one)
 
@@ -70,9 +86,10 @@ modules/ .............. Zabbix loadable modules
     Template LLDP - IndexNum ... Use "ifIndex" as the local port number
 
     Tips : In most cases, please use "Template LLDP - General".
-          If the local port number becomes "eth0" please try "Template LLDP - IndexNum".
+           If the local port number becomes "eth0" please try "Template LLDP - IndexNum".
 
-  3. Wait for low-level discovery to generate the item.
+  3. (Zabbix 3.x) Wait for low-level discovery to generate the item.
+     (Zabbix 4.0 or later) Execute [Check now] from the discovery rule on the host setting screen to generate the item.
 
 
  ------------------
@@ -82,15 +99,18 @@ modules/ .............. Zabbix loadable modules
    How to overwrite lldp.rem.sysname
   -----------------------------------
 
-     o The neighboring device information can be overwritten using the host macro.
-       Only "lldp.rem.sysname" corresponds to forced overwrite function.
+  You can override the adjacent device host name ([Connect to] Host item) using host macros.
 
-  1. Check the Hostmacro Name from the Item-key you want to use forced overwrite function.
+  1. Check the 5th parameter (macro name) from the key of the item that is acquiring
+     the neighbor device information.
 
-    ex) Item-Key  : lldp.rem.sysname[{HOST.CONN},{$SNMP_COMMUNITY},1,7,{$FIXED_SYSNAME_1}]
-        MacroName : {$FIXED_SYSNAME_1}
+     ex) Item Key      : lldp.rem.sysname[{HOST.CONN},{$SNMP_COMMUNITY},1,7,{$FIXED_SYSNAME_1}]
+         5th parameter : {$FIXED_SYSNAME_1}
 
-  2. On the setting screen of the host macro, set the MacroName to "Macro" and overwrite character string to "Value".
+  2. On the host macro setting screen, make the following settings. 
+      Set "character string acquired from the fifth parameter" in the macro field.
+      Set "Overwrite character string" in the value field.
 
+  3. From the next monitoring timing, the specified character string is collected as "Neighbor device host name".
 
 # EOF
